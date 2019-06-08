@@ -13,6 +13,8 @@ I only use variables outside the class - when I'm initialising it
 
 NOTE: 
 
+I have used a class of 'active' in my CSS file to open and close the nav
+
 */
 
 function MobileNav(props) {
