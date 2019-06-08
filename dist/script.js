@@ -1,11 +1,17 @@
 
 /*
 
+MOBILE NAV CLASS - 
+
+
+DEV NOTE: 
 There appears to be a scoping issue when you use variables in the contructor function or when attaching things to the prototype
 
 so, instead, reference elements etc with the 'this' keyword instead.
 
 I only use variables outside the class - when I'm initialising it 
+
+NOTE: 
 
 */
 
@@ -20,18 +26,19 @@ function MobileNav(props) {
 
   this.openOrClose(); // open or close the nav on page load
 
-  this._trigger.addEventListener('click', function (e) { // trigger the toggle
+  // trigger the toggle
+  this._trigger.addEventListener('click', function (e) { 
     e.preventDefault();
     this.toggleState();
-  }.bind(this._self));
+  }.bind(this._self)); // use 'bind' to bind the 'this' keyword to the 'MobileNav' class
 }
 
 MobileNav.prototype = function () { // attach methods to the prototype
 
 
   var setState = function (state) { // create a 'state' property and give it a boolean value
-    (typeof state === 'boolean') ? this._state = state : this._state = false;
-    (this._state) ? this._nav.classList.add(this._activeClass): this._nav.classList.remove(this._activeClass);
+    (typeof state === 'boolean') ? this._state = state : this._state = false; // check if the value of the 'state' prop is a boolean then set it
+    (this._state) ? this._nav.classList.add(this._activeClass): this._nav.classList.remove(this._activeClass); // based off the 'state' prop, add or remove active class
   }
 
   var getState = function () { // get the 'state' prop value (boolean)
@@ -50,14 +57,14 @@ MobileNav.prototype = function () { // attach methods to the prototype
     }
   }
 
-  return { // return all methods
+  return { // return all methods - (whatever isn't returned in this object will be kept private) - I have chosen to include them all
     setState: setState,
     getState: getState,
     toggleState: toggleState,
     openOrClose: openOrClose
   }
 
-}()
+}() // the '()' means that the function will be executed straight away. 
 
 var navs = document.querySelectorAll('.wrap'); // select the parent container for each nav (returns a nodeList)
 
