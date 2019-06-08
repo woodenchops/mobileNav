@@ -1,0 +1,45 @@
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+
+.wrap {
+    height: 200px;
+    position: relative;
+} 
+
+
+
+
+#nav {
+    background-color: aquamarine;
+    position: absolute;
+    top: 50px;
+    width: 100%;
+    right: -100%;
+    transition: right 1s;  
+}
+
+#nav.active {
+    right: 0;
+}
+  
+
+#nav-btn {
+    background-color: cornflowerblue;
+    color: #fff;
+    font-family: sans-serif;
+    border-radius: 4px;
+    padding: 10px 20px;
+    text-decoration: none;
+    margin: 10px;
+    display: inline-block;
+}
+
+.nav-wrap {
+    display: flex;
+    justify-content: flex-end;
+}
