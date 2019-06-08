@@ -48,7 +48,7 @@ MobileNav.prototype = function () { // attach methods to the prototype
   }
 
   var toggleState = function () { // toggle the 'state' prop
-    this.setState(!this.getState());
+    this.setState(!this.getState()); // set the value of 'state' to the opposite of what it is on 'click' (true/false)
   }
 
   var openOrClose = function() { // open or close nav on page load
