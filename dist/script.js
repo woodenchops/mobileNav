@@ -1,37 +1,48 @@
+
+/*
+
+There appears to be a scoping issue when you use variables in the contructor function or when attaching things to the prototype
+
+so, instead, reference elements etc with the 'this' keyword instead.
+
+I only use variables outside the class - when I'm initialising it 
+
+*/
+
 function MobileNav(props) {
-  this._parentElement = props.parentElement;
-  this._nav = this._parentElement.querySelector(props.nav);
-  this._trigger = this._parentElement.querySelector(props.trigger);
-  this._activeClass = props.activeClass;
-  this._props = props;
-  this._open = props.open;
-  this._self = this;
+  this._parentElement = props.parentElement; // the parent wrapper
+  this._nav = this._parentElement.querySelector(props.nav); // the nav you wish to toggle
+  this._trigger = this._parentElement.querySelector(props.trigger); // the trigger you want to use to toggle the nav
+  this._activeClass = props.activeClass; // the class you wish to add to create the toggle
+  this._props = props; // pass the values of the object passed when you initialise the class
+  this._open = props.open; // property to determine if you want the nav open or closed on page load
+  this._self = this; // reference the class itself (MobileNav)
 
-  this.openOrClose();
+  this.openOrClose(); // open or close the nav on page load
 
-  this._trigger.addEventListener('click', function (e) {
+  this._trigger.addEventListener('click', function (e) { // trigger the toggle
     e.preventDefault();
     this.toggleState();
   }.bind(this._self));
 }
 
-MobileNav.prototype = function () {
+MobileNav.prototype = function () { // attach methods to the prototype
 
 
-  var setState = function (state) {
+  var setState = function (state) { // create a 'state' property and give it a boolean value
     (typeof state === 'boolean') ? this._state = state : this._state = false;
     (this._state) ? this._nav.classList.add(this._activeClass): this._nav.classList.remove(this._activeClass);
   }
 
-  var getState = function () {
+  var getState = function () { // get the 'state' prop value (boolean)
     return this._state;
   }
 
-  var toggleState = function () {
+  var toggleState = function () { // toggle the 'state' prop
     this.setState(!this.getState());
   }
 
-  var openOrClose = function() {
+  var openOrClose = function() { // open or close nav on page load
     if(this._open) {
       this.setState(true);
     } else {
@@ -39,7 +50,7 @@ MobileNav.prototype = function () {
     }
   }
 
-  return {
+  return { // return all methods
     setState: setState,
     getState: getState,
     toggleState: toggleState,
@@ -48,17 +59,20 @@ MobileNav.prototype = function () {
 
 }()
 
-var navs = document.querySelectorAll('.wrap');
+var navs = document.querySelectorAll('.wrap'); // select the parent container for each nav (returns a nodeList)
 
-var buttonsArray = [];
+var buttonsArray = []; // create an empty array to push each new instance into 
 
-navs.forEach(function (nav) {
+navs.forEach(function (navParent) { // loop over each nav element and create an instance of the class for each 
   buttonsArray.push(new MobileNav({
-    parentElement: nav,
-    nav: '#nav',
-    trigger: '#nav-btn',
-    activeClass: 'active',
-    open: false
+    parentElement: navParent, // set the parent nav ('.wrap')
+    nav: '#nav', // set the nav you wish to target
+    trigger: '#nav-btn', // the button you wish to use to toggle the nav
+    activeClass: 'active', // the class you wish to add to toggle the nav
+    open: true // open or close the nav on page load
   }));
 });
+
+
+
 
