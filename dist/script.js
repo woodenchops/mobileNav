@@ -5,7 +5,7 @@ MOBILE NAV CLASS -
 
 
 DEV NOTE: 
-There appears to be a scoping issue when you use variables in the contructor function or when attaching things to the prototype
+There appears to be a scoping issue when you use variables in the constructor function or when attaching things to the prototype
 
 so, instead, reference elements etc with the 'this' keyword instead.
 
@@ -52,11 +52,7 @@ MobileNav.prototype = function () { // attach methods to the prototype
   }
 
   var openOrClose = function() { // open or close nav on page load
-    if(this._open) {
-      this.setState(true);
-    } else {
-      this.setState(false);
-    }
+    (this._open) ? this.setState(true) : this.setState(false)
   }
 
   return { // return all methods - (whatever isn't returned in this object will be kept private) - I have chosen to include them all
